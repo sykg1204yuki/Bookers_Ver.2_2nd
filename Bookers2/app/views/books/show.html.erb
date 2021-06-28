@@ -1,14 +1,39 @@
-<h2><strong>Book detail</strong></h2>
-<table>
-  <tr>
-    <td></td> <!--attachment_image_tag... でプロフィール画像挿入-->
-    <td><%= link_to @book.title %></td>
-    <td><%= @book.body %></td>
-    <td>
-      <% if @book.user_id == current_user.id %>
-        <%= link_to 'Edit', edit_book_path(@book.id) %>
-        <%= link_to 'Destroy', book_path(@book.id), method: :delete,
-            "data-confirm" => "Are you sure?" %>
-      <% end %>
-  </tr>
-</table>
+<% if flash[:notice] %>
+<section class="notification">
+  <p><%= flash[:notice] %></p>
+</section>
+<% end %>
+
+
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: @user %>
+
+      <%= render 'books/new', book: @new_book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2><strong>Book detail</strong></h2>
+      <table class="container table table-white">
+        <tr class="row">
+          <td class="col-md-2">
+            <%= link_to user_path(@user.id) do %>
+              <%= attachment_image_tag @book.user, :profile_image, format:"jpeg",
+                  fallback:"no_image.jpg", size:"60x60" %>
+              <%= @book.user.name %>
+            <% end %>
+          </td> <!--attachment_image_tag... でプロフィール画像挿入-->
+          <td class="col-md-2"><%= link_to @book.title %></td>
+          <td class="col-md-5"><%= @book.body %></td>
+          <td class="col-md-3">
+            <% if @book.user_id == current_user.id %>
+              <%= link_to 'Edit', edit_book_path(@book.id), class:"btn btn-success" %><br/>
+              <%= link_to 'Destroy', book_path(@book.id), method: :delete, class:"mt-2 btn btn-danger",
+                  "data-confirm" => "Are you sure?" %>
+            <% end %>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

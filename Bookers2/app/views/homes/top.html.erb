@@ -1,1 +1,26 @@
-<h1>トップページ</h1>
+<% if flash[:notice] %>
+<section class="notification">
+  <%= flash[:notice] %>
+</section>
+<% end %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-3 text-center">
+      <h1>Welcome to <span><i class="fas fa-book"></i></span><strong>Bookers</strong>!!</h1>
+      <section>
+        <p>in <span><i class="fas fa-book"></i></span><strong>Bookers</strong>,</p>
+        <p>you can share and exchange your opinions, inpressions,<br/>
+            and emotions about various books!</p>
+      </section>
+      <%= link_to 'Log in', new_user_session_path, class:"w-75 btn btn-primary" %><br/>
+      <%= link_to 'Sign Up', new_user_registration_path, class:"w-75 my-3 btn btn-success" %>
+    </div>
+  </div>
+</div>
+
+
+
+
+

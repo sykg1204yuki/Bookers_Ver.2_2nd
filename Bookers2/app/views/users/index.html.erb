@@ -1,0 +1,31 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: @user %>
+
+      <%= render 'books/new', book: @book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2><strong>Users</strong></h2>
+      <table class="table table-white">
+        <tr>
+          <th><storong>image</storong></th>
+          <th><strong>name</strong></th>
+          <th></th>
+        </tr>
+        <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= attachment_image_tag user, :profile_image, format:"jpeg",
+                fallback:"no_image.jpg", size:"60x60" %>
+          </td> <!--attachment_image_tag...で画像挿入-->
+          <td><%= user.name %></td>
+          <td>
+            <%= link_to 'Show', user_path(user.id) %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
