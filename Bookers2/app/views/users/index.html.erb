@@ -21,6 +21,17 @@
           </td> <!--attachment_image_tag...で画像挿入-->
           <td><%= user.name %></td>
           <td>
+            <% if current_user != user %>
+              <% if current_user.followings?(user) %>
+                <%= link_to 'フォロー済み', user_relationships_path(user.id),
+                    method: :delete, class:"text-primary" %>
+              <% else %>
+                <%= link_to 'フォローする', user_relationships_path(user.id),
+                    method: :post, class:"text-success" %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
             <%= link_to 'Show', user_path(user.id) %>
           </td>
         </tr>

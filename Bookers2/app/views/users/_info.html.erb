@@ -11,5 +11,25 @@
     <td><strong>introduction</strong></td>
     <td><%= user.introduction %></td>
   </tr>
+  <tr>
+    <td><strong>follows</strong></td>
+    <td><%= link_to user.followings.count, user_followings_path(user.id) %></td>
+  </tr>
+  <tr>
+    <td><strong>followers</strong></td>
+    <td><%= link_to user.followers.count, user_followers_path(user.id) %></td>
+  </tr>
 </table>
-<%= link_to '', edit_user_path(user.id), class:"w-100 btn btn-secondary fas fa-user-cog" %>
+<% if current_user == user %>
+  <%= link_to '', edit_user_path(user.id),
+      class:"w-100 btn btn-secondary fas fa-user-cog" %>
+<% else %>
+  <% if current_user.followings?(user) %>
+    <%= link_to 'フォロー済み', user_relationships_path(user.id),
+        method: :delete, class:"btn btn-primary w-100" %>
+  <% else %>
+    <%= link_to 'フォローする', user_relationships_path(user.id),
+        method: :post, class:"btn btn-success w-100" %>
+  <% end %>
+<% end %>
+
